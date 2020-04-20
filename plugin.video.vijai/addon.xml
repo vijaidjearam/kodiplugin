@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.vijai" name="vijai" version="3.0.12" provider-name="Vijai">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+	<import addon="script.module.addon.common" />
+    <import addon="script.module.simplejson" version="3.3.0" />
+    <import addon="script.module.beautifulsoup4" version="4.5.3"/>
+    <import addon="script.module.resolveurl" version="5.0.00"/>
+    <import addon="script.module.t0mm0.common" version="2.1.1"/>
+    <import addon="script.module.requests" version="2.12.4"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+	<summary lang="en">Movie Links</summary>
+	<description lang="en">Free Movie Links all from Openload Movies,Now with TV Also</description>
+	<disclaimer lang="en"></disclaimer>
+	<platform>all</platform>
+  </extension>
+</addon>
