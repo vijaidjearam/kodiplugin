@@ -434,67 +434,82 @@ def loadgunmovie():
                 opener = urllib2.build_opener(proxy_handler)
                 req = urllib2.Request(url)
                 opener.addheaders = [('User-agent', 'Mozilla/5.0')]
-                r = opener.open(req)
-                html1 = r.read()
-                movieurl= re.compile("domainStream = '(.*?)'").findall(html1)
-                xbmc.log("---------------------------------------embed1-tamildbox - movie-url-----------------------------------------------------------")
-                xbmc.log(str(movieurl))
-                if movieurl:
-                    for tempurl in movieurl:
-                        xbmc.log("---------------------------------------embed1-tamildbox - temp-url-----------------------------------------------------------")
-                        xbmc.log(tempurl)
-                        addDir('','',tempurl,"TamilGun-embeded-URL","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png")
-                elif "domainStream = domainStream.replace('.tamildbox.tips', '.tamilgun.tv')" in html1:
-                    url = url.replace('hls_vast', 'hls')
-                    url = url.replace('.tamildbox.tips', '.tamilgun.tv')
-                    url = url + '/playlist.m3u8'
-                    xbmc.log(url)
-                    addDir('','',url,"TamilGun-embeded-URL","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png")
-                movieurl = re.compile('<iframe id=\"player\" src=\"(.*?)\"><\/iframe>').findall(html1)
-                xbmc.log("---------------------------------------embed1-tamildbox - movie-url-----------------------------------------------------------")
-                xbmc.log(str(movieurl))
-                headers = {
-                    'Connection': 'keep-alive',
-                    'Upgrade-Insecure-Requests': '1',
-                    'DNT': '1',
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36',
-                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-                    'Sec-Fetch-Site': 'cross-site',
-                    'Sec-Fetch-Mode': 'nested-navigate',
-                    'Referer': url,
-                    'Accept-Encoding': 'gzip, deflate, br',
-                    'Accept-Language': 'en-US,en;q=0.9,ta-IN;q=0.8,ta;q=0.7,fr-FR;q=0.6,fr;q=0.5',
-                }
-                for url in movieurl:
-                    if url:
-                        print url
-                        response = requests.get(url, headers=headers)
-                        temp = response.content
-                        movieurl = re.compile('sources:\s+\[\"(.*?)\",\"(.*?)\"\]').findall(temp)
-                        movieurl = movieurl[0]
-                        print movieurl[0]
-                        if movieurl[0]:
-                            headers = {
-                                'Connection': 'keep-alive',
-                                'Origin': 'https://chromecast.video',
-                                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36',
-                                'DNT': '1',
-                                'Accept': '*/*',
-                                'Sec-Fetch-Site': 'same-site',
-                                'Sec-Fetch-Mode': 'cors',
-                                'Referer': url,
-                                'Accept-Encoding': 'gzip, deflate, br',
-                                'Accept-Language': 'en-US,en;q=0.9,ta-IN;q=0.8,ta;q=0.7,fr-FR;q=0.6,fr;q=0.5',
-                            }
-                            response = requests.get(movieurl[0], headers=headers)
+                try:
+                    r = opener.open(req)
+                    html1 = r.read()
+                    movieurl= re.compile("domainStream = '(.*?)'").findall(html1)
+                    xbmc.log("---------------------------------------embed1-tamildbox - movie-url-----------------------------------------------------------")
+                    xbmc.log(str(movieurl))
+                    if movieurl:
+                        for tempurl in movieurl:
+                            xbmc.log("---------------------------------------embed1-tamildbox - temp-url-----------------------------------------------------------")
+                            xbmc.log(tempurl)
+                            addDir('','',tempurl,"TamilGun-embeded-URL","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png")
+                    elif "domainStream = domainStream.replace('.tamildbox.tips', '.tamilgun.tv')" in html1:
+                        url = url.replace('hls_vast', 'hls')
+                        url = url.replace('.tamildbox.tips', '.tamilgun.tv')
+                        url = url + '/playlist.m3u8'
+                        xbmc.log(url)
+                        addDir('','',url,"TamilGun-embeded-URL","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png")
+                    movieurl = re.compile('<iframe id=\"player\" src=\"(.*?)\"><\/iframe>').findall(html1)
+                    xbmc.log("---------------------------------------embed1-tamildbox - movie-url-----------------------------------------------------------")
+                    xbmc.log(str(movieurl))
+                    headers = {
+                        'Connection': 'keep-alive',
+                        'Upgrade-Insecure-Requests': '1',
+                        'DNT': '1',
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36',
+                        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+                        'Sec-Fetch-Site': 'cross-site',
+                        'Sec-Fetch-Mode': 'nested-navigate',
+                        'Referer': url,
+                        'Accept-Encoding': 'gzip, deflate, br',
+                        'Accept-Language': 'en-US,en;q=0.9,ta-IN;q=0.8,ta;q=0.7,fr-FR;q=0.6,fr;q=0.5',
+                    }
+                    for url in movieurl:
+                        if url:
+                            print url
+                            response = requests.get(url, headers=headers)
                             temp = response.content
-                            movieurl = re.compile('https:\/\/(.*?)index-v1-a1.m3u8').findall(temp)
-                            xbmc.log(str(movieurl))
-                            if movieurl[-1]:
+                            movieurl = re.compile('sources:\s+\[\"(.*?)\",\"(.*?)\"\]').findall(temp)
+                            movieurl = movieurl[0]
+                            print movieurl[0]
+                            if movieurl[0]:
+                                headers = {
+                                    'Connection': 'keep-alive',
+                                    'Origin': 'https://chromecast.video',
+                                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36',
+                                    'DNT': '1',
+                                    'Accept': '*/*',
+                                    'Sec-Fetch-Site': 'same-site',
+                                    'Sec-Fetch-Mode': 'cors',
+                                    'Referer': url,
+                                    'Accept-Encoding': 'gzip, deflate, br',
+                                    'Accept-Language': 'en-US,en;q=0.9,ta-IN;q=0.8,ta;q=0.7,fr-FR;q=0.6,fr;q=0.5',
+                                }
+                                response = requests.get(movieurl[0], headers=headers)
+                                temp = response.content
+                                movieurl = re.compile('https:\/\/(.*?)index-v1-a1.m3u8').findall(temp)
+                                xbmc.log(str(movieurl))
+                                if movieurl[-1]:
 
-                                movieurl = 'https://'+movieurl[-1]+'index-v1-a1.m3u8'
-                                xbmc.log(movieurl)
-                                addDir('','',movieurl,"TamilGun-embeded-URL","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png")
+                                    movieurl = 'https://'+movieurl[-1]+'index-v1-a1.m3u8'
+                                    xbmc.log(movieurl)
+                                    addDir('','',movieurl,"TamilGun-embeded-URL","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png")
+                except Exception, e: # work on python 2.x
+                    #dialog = xbmcgui.Dialog()
+                    #ok = dialog.ok('Kodi', str(e)) 
+                    pass
+        iframe= re.compile('sources:\s+\[{\"file\":\"(.*?)\"}\]').findall(html)
+        if iframe:
+            for url in iframe:
+                if "vidorg.net" in url:
+                    url = url.replace('\/','/')
+                    url = url.split(',')
+                    url = url[0]+url[3]+'/index-v1-a1.m3u8'
+                    if url:
+                        addDir('','',url,"vidorg.net","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png")
+
         iframe= re.compile('<IFRAME SRC=\"(.*?)\"').findall(html)
         print iframe
         if iframe:
