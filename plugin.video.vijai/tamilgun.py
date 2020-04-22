@@ -422,13 +422,12 @@ def loadgunmovie():
         for url in iframe:
             if "embed1.tamildbox" in url:
                 xbmc.log("---------------------------------------embed1-tamildbox-----------------------------------------------------------")
-                xbmc.log(url)
                 if "https" in url:
-                    url = url 
+                    url = url.replace("https","http")
                 elif "http" in url:
-                    url = url.replace("http","https")
+                    url = url
                 else:
-                    url = 'https:'+url
+                    url = 'http:'+url
                 xbmc.log(url)
                 proxy_handler = urllib2.ProxyHandler({})
                 opener = urllib2.build_opener(proxy_handler)
@@ -493,7 +492,8 @@ def loadgunmovie():
                                 xbmc.log(str(movieurl))
                                 if movieurl[-1]:
 
-                                    movieurl = 'https://'+movieurl[-1]+'index-v1-a1.m3u8'
+                                    movieurl = 'http://'+movieurl[-1]+'index-v1-a1.m3u8'
+                                    xbmc.log('TamilGun-embeded-URL http link ----------------------------------------------------------------------------------------------')
                                     xbmc.log(movieurl)
                                     addDir('','',movieurl,"TamilGun-embeded-URL","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png")
                 except Exception, e: # work on python 2.x
@@ -559,7 +559,7 @@ def loadgunmovie():
                         if movieurl[-1]:
                             movieurl = 'https://'+movieurl[-1]+'index-v1-a1.m3u8'
                           
-                            addDir('','',movieurl,"TamilGun-embeded-URL","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png")
+                            addDir('','',movieurl,"chromecast.video","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png","http://1.bp.blogspot.com/-MRgrvLyXh_M/WRREmIJa_AI/AAAAAAAABrs/zbzu9W5rwKo5RK6Xk8G-E_aXCgkz7rknACK4B/s400/TamilGun.png")
 
 
    #-----------------------------------End of detect cdn link   
