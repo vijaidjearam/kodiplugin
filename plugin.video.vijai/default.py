@@ -14,9 +14,15 @@ from onlinemoviewatchs import onlinemoviewatchscontent,loadonlinemoviewatchs,onl
 from movierulz import loadmovierulz,playMovierulz
 from vexmovies import loadvexmovies,playvexmovies
 from playurl import playurl
+from movie import site
 addon_handle= int(sys.argv[1])
-
-# def playurl():
+get_site_content_regex = '<a href=\"(?P<pageurl>.*?)\"\stitle=\"(?P<title>.*?)\">\s*<img width=\"\d+\" height=\"\d+\" src=\"(?P<poster>.*?)\"'
+get_nav_data_regex = '<a href=\"(.*?)\">&larr;(\s|)Older Entries'
+get_stream_url_regex = '<p><strong>(?P<streamtitle>.*?)<\/strong><br \/>\s+<a href=\"(?P<streamurl>.*?)\"'
+movierulz_tamil = site(url="",redirection_name="movierulz_tamil",get_site_content_regex=get_site_content_regex,get_nav_data_regex=get_nav_data_regex,get_stream_url_regex=get_stream_url_regex)
+xbmc.log('Checking if movierulz_tamil is a an object------------------------------------')
+xbmc.log(str(isinstance(movierulz_tamil,site)))
+# def playurl()
 #     args = sys.argv[2]
 #     mode = args.split('url=')
 #     mode = mode[1]
@@ -52,7 +58,7 @@ def tamil():
     addDir('folder','tamilgun_Dubbedmovie','','tamilgun_Dubbedmovie',getImgPath("tamilgun_Newmovie_icon"),getImgPath("tamilgun_fanart"))
     addDir('folder','tubetamil','','tubetamil',getImgPath("tubetamil_icon"),getImgPath("tubetamil_icon"))
     addDir('folder','onlinemoviewatchs','','onlinemoviewatchs',getImgPath("onlinemoviewatch_icon"),getImgPath("onlinemoviewatch_fanart"))
-    addDir('folder','movierulz-tamil','','movierulz-tamil',getImgPath("movierulz_icon"),getImgPath("movierulz_icon"))
+    addDir('folder','movierulz_tamil','','movierulz_tamil',getImgPath("movierulz_icon"),getImgPath("movierulz_icon"))
     addDir('folder','movierulz-all-tamil-movies','','movierulz-all-tamil-movies',getImgPath("movierulz_icon"),getImgPath("movierulz_icon"))
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 def telugu():
@@ -174,32 +180,34 @@ elif mode == 'movierulz-all-telugu-movies':
     url = r.url
     url = url+"/category/telugu-movie/"
     loadmovierulz(url)
-elif mode == 'movierulz-tamil':
+elif mode == 'movierulz_tamil':
     url = "http://www.movierulz.com"
     r = requests.get(url) 
     url = r.url
     url = url+"/tamil-movie-free/"
-    loadmovierulz(url)
-elif mode == 'movierulz-all-tamil-movies':
-    url = "http://www.movierulz.com"
-    r = requests.get(url) 
-    url = r.url
-    url = url+"/category/tamil-movie/"
-    loadmovierulz(url)
-elif mode == 'movierulz-hindi-2018':
-    url = "http://www.movierulz.com"
-    r = requests.get(url) 
-    url = r.url
-    url = url+"/category/bollywood-movie-2018/"
-    loadmovierulz(url)
-elif mode == 'movierulz-hindi-2019':
-    url = "http://www.movierulz.com"
-    r = requests.get(url) 
-    url = r.url
-    url = url+"/category/bollywood-movie-2019/"
-    loadmovierulz(url)
-elif mode == 'playMovierulz':
-    playMovierulz()
+    movierulz_tamil.loadsitecontent(url)
+# elif mode == 'movierulz-tamil':
+#     url = "http://www.movierulz.com"
+#     r = requests.get(url) 
+#     url = r.url
+#     url = url+"/category/tamil-movie/"
+
+#     loadmovierulz(url)
+# elif mode == 'movierulz-hindi-2018':
+#     url = "http://www.movierulz.com"
+#     r = requests.get(url) 
+#     url = r.url
+#     url = url+"/category/bollywood-movie-2018/"
+#     loadmovierulz(url)
+# elif mode == 'movierulz-hindi-2019':
+#     url = "http://www.movierulz.com"
+#     r = requests.get(url) 
+#     url = r.url
+#     url = url+"/category/bollywood-movie-2019/"
+#     loadmovierulz(url)
+elif mode == 'liststreamurl':
+    #playMovierulz()
+    movierulz_tamil.liststreamurl()
 elif mode == 'playurl':
     playurl()
 elif mode == 'voirfilms':

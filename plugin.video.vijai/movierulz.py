@@ -14,13 +14,17 @@ def loadmovierulz(url):
         mode = mode.split('&')
         url = mode[0]
         url = urllib.unquote_plus(url)
+    xbmc.log('Entering movie rulz----------------------------------------------------------------')    
+    xbmc.log(str(url))
     data = getdatacontent(url,"<a href=\"(.*?)\"\stitle=\"(.*?)\">\s*<img width=\"\d+\" height=\"\d+\" src=\"(.*?)\"")
     nav = getdatacontent(url,"<a href=\"(.*?)\">&larr;(\s|)Older Entries")
     nav =  nav[0]
     for item in data:
         addDir('folder','playMovierulz',item[0],item[1],item[2],item[2])
     if nav:
-        addDir( 'folder','movierulz-telugu',nav[0],'[B]Next Page...[/B]',"https://lh3.googleusercontent.com/-NsVeHCUW0lo/V4b8r67FVSI/AAAAAAAAD7U/G1ifDqs0nFENPck0-oKCQgc3-Gdm_JM7QCCo/s574/next_574x358.png","https://lh3.googleusercontent.com/-NsVeHCUW0lo/V4b8r67FVSI/AAAAAAAAD7U/G1ifDqs0nFENPck0-oKCQgc3-Gdm_JM7QCCo/s574/next_574x358.png" )
+        xbmc.log('Entering movie rulz- Navigation----------------------------------------------------------------')    
+        xbmc.log(str(nav[0]))
+        addDir( 'folder','movierulz-tamil',nav[0],'[B]Next Page...[/B]',"https://lh3.googleusercontent.com/-NsVeHCUW0lo/V4b8r67FVSI/AAAAAAAAD7U/G1ifDqs0nFENPck0-oKCQgc3-Gdm_JM7QCCo/s574/next_574x358.png","https://lh3.googleusercontent.com/-NsVeHCUW0lo/V4b8r67FVSI/AAAAAAAAD7U/G1ifDqs0nFENPck0-oKCQgc3-Gdm_JM7QCCo/s574/next_574x358.png" )
     xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def playMovierulz():

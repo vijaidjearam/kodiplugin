@@ -3,7 +3,7 @@ from vijaicontent import addDir
 from getImgPath import getImgPath
 def playurl():
     args = sys.argv[2]
-    xbmc.log("-------------------------------tesing vijai---------------------------------------------------------------")
+    xbmc.log("-------------------------------tesing vijai playurl ---------------------------------------------------------------")
     xbmc.log(args)
     mode = args.split('url=')
     mode = mode[1]
@@ -14,6 +14,7 @@ def playurl():
         xbmc.log(url)
         movieurl = resolveurl.HostedMediaFile(url)
         movieurl = movieurl.resolve()
+        xbmc.log(movieurl)
         addDir('','',movieurl,"Click to play the link",getImgPath("openload_icon"),getImgPath("openload_fanart"))
     except:
         xbmcgui.Dialog().ok('XBMC', 'Unable to locate video')
