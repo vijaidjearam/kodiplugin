@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="plugin.video.vijai" name="vijai" version="3.0.15" provider-name="Vijai">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-	<import addon="script.module.addon.common" />
-    <import addon="script.module.simplejson" version="3.3.0" />
-    <import addon="script.module.beautifulsoup4" version="4.5.3"/>
-    <import addon="script.module.resolveurl" version="5.0.00"/>
-    <import addon="script.module.t0mm0.common" version="2.1.1"/>
-    <import addon="script.module.requests" version="2.12.4"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-		<provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-	<summary lang="en">Movie Links</summary>
-	<description lang="en">Free Movie Links all from Openload Movies,Now with TV Also</description>
-	<disclaimer lang="en"></disclaimer>
-	<platform>all</platform>
-  </extension>
+<addon id="plugin.video.vijai"
+version="3.0.15"
+name="vijai"
+provider-name="vijai">
+<requires>
+  <import addon="xbmc.python" version="2.25.0"/>
+  <import addon="script.module.routing" version="0.2.0"/>
+  <import addon="script.module.resolveurl" optional="true"/>
+  <import addon="script.module.requests" optional="true"/>
+  <import addon="script.module.t0mm0.common" version="2.1.1"/>
+</requires>
+<extension point="xbmc.python.pluginsource" library="main.py">
+  <provides>video</provides>
+</extension>
+<extension point="xbmc.addon.metadata">
+  <summary lang="en">Video Plugin</summary>
+  <description lang="en_GB">video plugin for Kodi mediacenter.</description>
+  <disclaimer lang="en_GB">The plugin only provides movies or series thats available in the internet.</disclaimer>
+  <assets>
+    <icon>icon.png</icon>
+  </assets>
+  <news>Updated with latest artwork metadata</news>
+</extension>
 </addon>
 
     <addon id="repository.vijai" name="vijai" version="0.1.1" provider-name="vijai">
