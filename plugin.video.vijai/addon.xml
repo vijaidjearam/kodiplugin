@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon id="plugin.video.vijai"
-version="3.0.15"
+version="3.0.17"
 name="vijai"
 provider-name="vijai">
 <requires>
   <import addon="xbmc.python" version="2.25.0"/>
   <import addon="script.module.routing" version="0.2.0"/>
-  <import addon="script.module.resolveurl" optional="true"/>
-  <import addon="script.module.requests" optional="true"/>
+  <import addon="script.module.resolveurl" version="5.0.00"/>
+  <import addon="script.module.requests" version="2.22.0"/>
   <import addon="script.module.t0mm0.common" version="2.1.1"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">

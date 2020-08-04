@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <addon id="repository.vijai" name="vijai" version="0.1.1" provider-name="vijai">
+    <addon id="repository.vijai" name="vijai" version="0.1.2" provider-name="vijai">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
         <extension point="xbmc.addon.repository" name="vijai">
-            <info compressed="false">http://vijai.host22.com/_repo/addons.xml</info>
-            <checksum>http://vijai.host22.com/_repo/addons.xml.md5</checksum>
-            <datadir zip="true">http://vijai.host22.com/_repo/</datadir>
-            <hashes>false</hashes>
+            <dir>
+                <info compressed="false">http://vijai.host22.com/_repo/addons.xml</info>
+                <checksum>http://vijai.host22.com/_repo/addons.xml.md5</checksum>
+                <datadir zip="true">http://vijai.host22.com/_repo/</datadir>
+                <hashes>false</hashes>
+            </dir>
+            <dir>
+                <info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
+                <checksum>https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml.md5</checksum>
+                <datadir zip="true">https://raw.githubusercontent.com/jsergio123/zips/master/</datadir>
+            </dir>
         </extension>
         <extension point="xbmc.addon.metadata">
             <summary>tamilgun,vumoo and onlinemoviewatchs</summary>
