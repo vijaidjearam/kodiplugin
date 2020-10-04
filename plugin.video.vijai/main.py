@@ -64,7 +64,7 @@ def index():
     url = tamilgunurl +'/categories/new-movies-a/'
     get_site_content_regex = '<img src=\" (?P<poster>.*?) \" alt=\"(?P<title>.*?)\" \/>\s+<div class=\"rocky-effect\">\s+<a href=\"(?P<pageurl>.*?)\"\s>'
     get_nav_data_regex = '<a class="next page-numbers" href="(?P<navlink>.*?)">'
-    get_stream_url_regex = '<(iframe|IFRAME)\s(src|SRC)=\"(?P<streamurl>.*?)\"|onclick=\"window\.open\(\'(?P<streamurl1>.*?)\'|sources:\s+\[{\"file\":\"(?P<streamurl2>.*?)\"}\]'
+    get_stream_url_regex = '<(iframe|IFRAME)(\s|.*?)(src|SRC)=\"(?P<streamurl>.*?)\"|onclick=\"window\.open\(\'(?P<streamurl1>.*?)\'|sources:\s+\[{\"file\":\"(?P<streamurl2>.*?)\"}\]'
     get_site_content_regex = urllib.quote_plus(get_site_content_regex)
     get_stream_url_regex = urllib.quote_plus(get_stream_url_regex)
     get_nav_data_regex = urllib.quote_plus(get_nav_data_regex)
@@ -72,7 +72,7 @@ def index():
     url = tamilgunurl +'/categories/hd-movies/'
     get_site_content_regex = '<img src=\" (?P<poster>.*?) \" alt=\"(?P<title>.*?)\" \/>\s+<div class=\"rocky-effect\">\s+<a href=\"(?P<pageurl>.*?)\"\s>'
     get_nav_data_regex = '<a class="next page-numbers" href="(?P<navlink>.*?)">'
-    get_stream_url_regex = '<(iframe|IFRAME)\s(src|SRC)=\"(?P<streamurl>.*?)\"|onclick=\"window\.open\(\'(?P<streamurl1>.*?)\'|sources:\s+\[{\"file\":\"(?P<streamurl2>.*?)\"}\]'
+    get_stream_url_regex = '<(iframe|IFRAME)(\s|.*?)(src|SRC)=\"(?P<streamurl>.*?)\"|onclick=\"window\.open\(\'(?P<streamurl1>.*?)\'|sources:\s+\[{\"file\":\"(?P<streamurl2>.*?)\"}\]'
     get_site_content_regex = urllib.quote_plus(get_site_content_regex)
     get_stream_url_regex = urllib.quote_plus(get_stream_url_regex)
     get_nav_data_regex = urllib.quote_plus(get_nav_data_regex)
