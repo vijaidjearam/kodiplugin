@@ -4,7 +4,7 @@ from xbmcgui import ListItem, Dialog
 from xbmcplugin import addDirectoryItem, endOfDirectory, setResolvedUrl
 import urllib2,urllib,re,requests
 import resolveurl as urlresolver
-from lib import chromevideo, embedtamilgun, vidorgnet, videobin, vup, gofile
+from lib import chromevideo, embedtamilgun, vidorgnet, videobin, vup, gofile, streamtape
 
 
 def getdatacontent_dict(url,reg):
@@ -186,15 +186,21 @@ def resolvelink(url,source):
             addDirectoryItem(plugin.handle,url=movieurl,listitem=play_item,isFolder=False)
         except:
             Dialog().ok('XBMC', 'Unable to locate video')
+    # elif 'etcscrs' in url and 'movierulz' in source:
+    #     #streamtape link
+    #     reg = '<iframe src="(.*?)"'
+    #     url = getdatacontent(url,reg)
+    #     url = url[0]
+    #     try:
+    #         movieurl = urlresolver.HostedMediaFile(url)
+    #         movieurl = movieurl.resolve()
+    #         xbmc.log(movieurl)
+    #         addDirectoryItem(plugin.handle,url=movieurl,listitem=play_item,isFolder=False)
+    #     except:
+    #         Dialog().ok('XBMC', 'Unable to locate video')
     elif 'etcscrs' in url and 'movierulz' in source:
-        #streamtape link
-        reg = '<iframe src="(.*?)"'
-        url = getdatacontent(url,reg)
-        url = url[0]
+        movieurl = streamtape.resolve_streamtape(url)
         try:
-            movieurl = urlresolver.HostedMediaFile(url)
-            movieurl = movieurl.resolve()
-            xbmc.log(movieurl)
             addDirectoryItem(plugin.handle,url=movieurl,listitem=play_item,isFolder=False)
         except:
             Dialog().ok('XBMC', 'Unable to locate video')
