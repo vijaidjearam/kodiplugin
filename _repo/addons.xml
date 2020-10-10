@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
 <addon id="plugin.video.vijai"
-version="3.0.18"
+version="3.0.19"
 name="vijai"
 provider-name="vijai">
 <requires>
@@ -10,6 +10,7 @@ provider-name="vijai">
   <import addon="script.module.resolveurl" version="5.0.00"/>
   <import addon="script.module.requests" version="2.22.0"/>
   <import addon="script.module.t0mm0.common" version="2.1.1"/>
+  <import addon="script.module.six" version="0.0.1"/>
 </requires>
 <extension point="xbmc.python.pluginsource" library="main.py">
   <provides>video</provides>
@@ -25,7 +26,7 @@ provider-name="vijai">
 </extension>
 </addon>
 
-    <addon id="repository.vijai" name="vijai" version="0.1.2" provider-name="vijai">
+    <addon id="repository.vijai" name="vijai" version="0.1.3" provider-name="vijai">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>

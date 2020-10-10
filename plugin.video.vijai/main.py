@@ -4,7 +4,7 @@ from xbmcgui import ListItem, Dialog
 from xbmcplugin import addDirectoryItem, endOfDirectory, setResolvedUrl
 import urllib2,urllib,re,requests
 import resolveurl as urlresolver
-from lib import chromevideo, embedtamilgun, vidorgnet
+from lib import chromevideo, embedtamilgun, vidorgnet, videobin, vup, gofile
 
 
 def getdatacontent_dict(url,reg):
@@ -101,7 +101,9 @@ def getsitecontent(url,get_site_content_regex,get_nav_data_regex,get_stream_url_
 def liststreamurl(url,get_stream_url_regex):
     get_stream_url_regex = urllib.unquote_plus(get_stream_url_regex)
     data = getdatacontent_dict(url,get_stream_url_regex)
+    xbmc.log ('--------------------------------------------------------------------------------------------------------------------------test')
     xbmc.log(str(data))
+    xbmc.log(url)
     blacklists = ['goblogportal']
     for item in data:
         xbmc.log(str(item))
@@ -116,12 +118,15 @@ def liststreamurl(url,get_stream_url_regex):
                             streamurl = urllib.quote_plus(value)
                             title = value.split('/')
                             title = title[2]+'-Link'
-                            addDirectoryItem(plugin.handle,plugin.url_for(resolvelink,streamurl), ListItem(title),True)
+                            url = urllib.quote_plus(url)
+                            addDirectoryItem(plugin.handle,plugin.url_for(resolvelink,streamurl,url), ListItem(title),True)
     endOfDirectory(plugin.handle)
 
-@plugin.route('/resolvelink/<url>')
-def resolvelink(url):
+@plugin.route('/resolvelink/<path:url>/<source>')
+#source variable is used for resolving custom resolver coming from source site ex: videobin.co from movierulz can be routed particular if loop, the rest will be resolved by urlresolver
+def resolvelink(url,source):
     url = urllib.unquote_plus(url)
+    source = urllib.unquote_plus(source)
     play_item = ListItem('click to play the link')
     play_item.setInfo( type="Video", infoLabels=None)
     play_item.setProperty('IsPlayable', 'true')
@@ -130,18 +135,18 @@ def resolvelink(url):
         youtube_video_id = url[-1]
         url = 'plugin://plugin.video.youtube/play/?video_id='+youtube_video_id
         addDirectoryItem(plugin.handle,url=url,listitem=play_item,isFolder=False)
-    elif 'etcscrs' in url:
-        data = getdatacontent_dict(url,'<iframe\swidth=\"(.*?)\"\sheight=\"(.*?)\"\s+src=\"(?P<mixdroplink>.*?)\"')
-        for item in data:
-            if item['mixdroplink']:
-                if 'mixdrop' in item['mixdroplink']:
-                    url = 'https:'+item['mixdroplink']
-                    try:
-                        movieurl = urlresolver.HostedMediaFile(url)
-                        movieurl = movieurl.resolve()
-                        addDirectoryItem(plugin.handle,url=movieurl,listitem=play_item,isFolder=False)
-                    except:
-                        Dialog().ok('XBMC', 'Unable to locate video')
+    # elif 'etcscrs' in url:
+    #     data = getdatacontent_dict(url,'<iframe\swidth=\"(.*?)\"\sheight=\"(.*?)\"\s+src=\"(?P<mixdroplink>.*?)\"')
+    #     for item in data:
+    #         if item['mixdroplink']:
+    #             if 'mixdrop' in item['mixdroplink']:
+    #                 url = 'https:'+item['mixdroplink']
+    #                 try:
+    #                     movieurl = urlresolver.HostedMediaFile(url)
+    #                     movieurl = movieurl.resolve()
+    #                     addDirectoryItem(plugin.handle,url=movieurl,listitem=play_item,isFolder=False)
+    #                 except:
+    #                     Dialog().ok('XBMC', 'Unable to locate video')
     elif 'chrome.video' in url:
         movieurl = resolve_chromevideo(url)
         try:
@@ -160,6 +165,48 @@ def resolvelink(url):
     elif 'vidorg' in url:
         movieurl = vidorgnet.resolve_vidorgnet(url)
         try:
+            addDirectoryItem(plugin.handle,url=movieurl,listitem=play_item,isFolder=False)
+        except:
+            Dialog().ok('XBMC', 'Unable to locate video')
+    elif 'videobin' in url and 'movierulz' in source:
+        movieurl = videobin.resolve_videobin(url)
+        try:
+            addDirectoryItem(plugin.handle,url=movieurl,listitem=play_item,isFolder=False)
+        except:
+            Dialog().ok('XBMC', 'Unable to locate video')
+    elif 'vup' in url and 'movierulz' in source:
+        movieurl = vup.resolve_vup(url)
+        try:
+            addDirectoryItem(plugin.handle,url=movieurl,listitem=play_item,isFolder=False)
+        except:
+            Dialog().ok('XBMC', 'Unable to locate video')
+    elif 'gofile' in url and 'movierulz' in source:
+        movieurl = gofile.resolve_gofile(url)
+        try:
+            addDirectoryItem(plugin.handle,url=movieurl,listitem=play_item,isFolder=False)
+        except:
+            Dialog().ok('XBMC', 'Unable to locate video')
+    elif 'etcscrs' in url and 'movierulz' in source:
+        #streamtape link
+        reg = '<iframe src="(.*?)"'
+        url = getdatacontent(url,reg)
+        url = url[0]
+        try:
+            movieurl = urlresolver.HostedMediaFile(url)
+            movieurl = movieurl.resolve()
+            xbmc.log(movieurl)
+            addDirectoryItem(plugin.handle,url=movieurl,listitem=play_item,isFolder=False)
+        except:
+            Dialog().ok('XBMC', 'Unable to locate video')
+    elif 'etcsrs' in url and 'movierulz' in source:
+        #mixdrop link
+        reg ='class="main-button dlbutton" href="(.*?)"'
+        url = getdatacontent(url,reg)
+        url = url[0]
+        try:
+            movieurl = urlresolver.HostedMediaFile(url)
+            movieurl = movieurl.resolve()
+            xbmc.log(movieurl)
             addDirectoryItem(plugin.handle,url=movieurl,listitem=play_item,isFolder=False)
         except:
             Dialog().ok('XBMC', 'Unable to locate video')
